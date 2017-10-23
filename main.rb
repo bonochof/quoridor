@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'dxruby'
 require_relative 'director'
 require_relative 'man'
