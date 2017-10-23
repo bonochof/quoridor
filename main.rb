@@ -1,7 +1,7 @@
 require 'dxruby'
 require_relative 'director'
-# require_relative 'man'
-# require_relative 'wall'
+require_relative 'man'
+require_relative 'wall'
 
 Window.caption = "Quoridor"
 Window.width = 800
