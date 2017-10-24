@@ -1,4 +1,4 @@
-# coding: utf-8
+﻿# coding: utf-8
 
 class Man
   attr_reader :x, :y
@@ -24,7 +24,7 @@ class Man
     @y = pos_y
   end
   
-  def movable?
+  def movable?(key)
     
   end
   
