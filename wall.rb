@@ -2,7 +2,6 @@
 
 class Wall
   def initialize
-    #@num = 20 / pnum
     @x = 0
     @y = 0
     @dir = :vertical
