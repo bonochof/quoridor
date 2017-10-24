@@ -2,6 +2,7 @@
 
 class Director
   def initialize
+    $size = 9
     $turn = 1
     $mode = :man
     @key = Hash.new
