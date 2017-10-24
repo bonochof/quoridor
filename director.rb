@@ -2,6 +2,7 @@
 
 class Director
   def initialize
+    $size = 9
     @key = Hash.new
     @font = Font.new(14)
     @player1 = Man.new(1)
