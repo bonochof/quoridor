@@ -2,14 +2,16 @@
 
 class Director
   def initialize
+    $pnum = 2
     $size = 9
     $turn = 1
-    $mode = :man
+    $mode = :pawn
     @key = Hash.new
     @font = Font.new(14)
     @map = Map.new
-    @player1 = Man.new(1)
-    @player2 = Man.new(2)
+    @pawn1 = Pawn.new(1)
+    @pawn2 = Pawn.new(2)
+    @wall1 = Array( 20/$pnum, Wall.new )
   end
   
   def input
@@ -34,9 +36,9 @@ class Director
     @key.each do |key|
       case $turn
       when 1
-        @player1.movable?(key) if key == true and $mode == :man
+        @pawn1.move(key) if key == true and $mode == :pawn
       when 2
-        @player2.movable?(key) if key == true and $mode == :man
+        @pawn2.move(key) if key == true and $mode == :pawn
       end
     end
     
