@@ -4,6 +4,7 @@ class Director
   def initialize
     @key = Hash.new
     @font = Font.new(14)
+    @map = Map.new
     player1 = Man.new(1)
     player2 = Man.new(2)
   end
