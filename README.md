@@ -24,3 +24,7 @@ Ruby
 
 ### ƒ‰ƒCƒuƒ‰ƒŠ
 DxRuby
+
+## ŠJ”­ŽÒ
+* [bonochof](https://github.com/bonochof)
+* [ko-ke-shi](https://github.com/ko-ke-shi)
