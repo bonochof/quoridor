@@ -2,7 +2,7 @@
 
 require 'dxruby'
 require_relative 'director'
-require_relative 'man'
+require_relative 'pawn'
 require_relative 'wall'
 require_relative 'map'
 
