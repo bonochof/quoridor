@@ -6,6 +6,7 @@ class Director
     $size = 9
     $turn = 1
     $mode = :pawn
+    @action = false
     @key = Hash.new
     @font = Font.new(14)
     @map = Map.new
@@ -33,7 +34,8 @@ class Director
   end
   
   def draw
-    Window.draw_font( 100, 100, "hoge", @font )
+    Window.draw_font( 100, 100, "turn:1", @font ) if $turn == 1
+    Window.draw_font( 100, 100, "turn:2", @font ) if $turn == 2
   end
   
   def play
@@ -47,8 +49,10 @@ class Director
       end
     end
 =end
-    
-    $turn += 1 if @key[:turn_end] == true
-    $turn = 1 if $turn > 2
+  
+    if @action
+      $turn += 1 if @key[:turn_end] == true
+      $turn = 1 if $turn > $pnum
+    end
   end
 end
