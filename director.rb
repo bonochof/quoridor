@@ -11,7 +11,7 @@ class Director
     @map = Map.new
     @pawn1 = Pawn.new(1)
     @pawn2 = Pawn.new(2)
-    @wall1 = Array( 20/$pnum, Wall.new )
+    @wall1 = Array.new( 20/$pnum, Wall.new )
   end
   
   def input
@@ -32,7 +32,12 @@ class Director
     @key[:turn_end] = Input.key_push?( K_SPACE )
   end
   
+  def draw
+    Window.draw_font( 100, 100, "hoge", @font )
+  end
+  
   def play
+=begin
     @key.each do |key|
       case $turn
       when 1
@@ -41,6 +46,7 @@ class Director
         @pawn2.move(key) if key == true and $mode == :pawn
       end
     end
+=end
     
     $turn += 1 if @key[:turn_end] == true
     $turn = 1 if $turn > 2

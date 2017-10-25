@@ -16,4 +16,5 @@ Window.loop do
   break if Input.keyPush?(K_ESCAPE)
   director.input
   director.play
+  director.draw
 end
