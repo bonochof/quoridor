@@ -1,10 +1,14 @@
 # coding: utf-8
 
 class Wall
+  attr_reader :setflag
+  attr_writer :x, :y
+
   def initialize
     @x = 0
     @y = 0
     @dir = :vertical
+    @setflag = false
   end
   
   def change_dir
@@ -35,6 +39,7 @@ class Wall
       j = stack.pop
     end
 =end
+    return false
   end
   
   def setable?
@@ -51,6 +56,6 @@ class Wall
   end
   
   def set
-  
+    @setflag = true
   end
 end
