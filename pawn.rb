@@ -24,11 +24,31 @@ class Pawn
     @y = pos_y
   end
   
-  def movable?(key)
+  def movable?( dir )
+    case dir
+    when :up
+      return true if @y > 0
+    when :down
+      return true if @y < $size - 1
+    when :left
+      return true if @x > 0
+    when :right
+      return true if @x < $size - 1
+    end
     
+    return false
   end
   
-  def move
-    
+  def move( dir )
+    case dir
+    when :up
+      @y -= 1
+    when :down
+      @y += 1
+    when :left
+      @x -= 1
+    when :right
+      @s += 1
+    end
   end
 end
