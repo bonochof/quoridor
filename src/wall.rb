@@ -20,25 +20,26 @@ class Wall
     end
   end
   
-  def dead_end?
-=begin
+  def dead_end?( x, y, map )
     stack = Array.new
-    visit = Array.new( $size, 0 )
+    visit = Array.new( $size * $size, 0 )
+    map.flatten!
+    i = x + 10 * y
     stack.push( i )
     visit[i] = 1;
-    j = i;
     until stack.size == 0 do
-      @map.each_with_index do |line, k|
-        if @map[j][k] == 1 and visit[k] == 0
-          j = k
-          k = 0
-          stack.push( j )
-          visit[j] = 1
+      for j in [-10, -1, 10, 1] do
+        if i + j > 0 and i + j < ( $size + 1 ) ** 2 - 1
+        if map[i+j] == 0 and visit[i+j] == 0
+          stack.push( i+j )
+          visit[i+j] = 1
+          i = i + j
+          redo
         end
       end
       j = stack.pop
     end
-=end
+    
     return false
   end
   
