@@ -39,11 +39,11 @@ class Wall
       for dy in [-2, 2] do
         for dx in [-2, 2] do
           if i + dy > 0 and i + dy < $map_size - 1 and j + dx > 0 and j + dx < $map_size - 1
-            if map[i+dy][j+dx] == goal
+            if $map[i+dy][j+dx] == goal
               return false
             end
             
-            if map[i+dy][j+dx] == 0 and visit[i+dy][j+dx] == 0
+            if $map[i+dy][j+dx] == 0 and visit[i+dy][j+dx] == 0
               i += dy
               j += dx
               stack_y.push( i )
