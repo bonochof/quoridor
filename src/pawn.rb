@@ -20,6 +20,7 @@ class Pawn
     else
       abort "player number is wrong"
     end
+    @num = pnum
     @x = pos_x
     @y = pos_y
   end
@@ -42,13 +43,13 @@ class Pawn
   def move( dir )
     case dir
     when :up
-      @y -= 1
+      @y -= 2
     when :down
-      @y += 1
+      @y += 2
     when :left
-      @x -= 1
+      @x -= 2
     when :right
-      @s += 1
+      @x += 2
     end
   end
 end

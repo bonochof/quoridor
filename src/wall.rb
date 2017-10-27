@@ -5,8 +5,8 @@ class Wall
   attr_writer :x, :y
 
   def initialize
-    @x = 0
-    @y = 0
+    @x = 1
+    @y = 1
     @dir = :vertical
     @setflag = false
   end
@@ -20,30 +20,49 @@ class Wall
     end
   end
   
-  def dead_end?( x, y )
-    stack = Array.new
-    visit = Array.new( $size * $size, 0 )
-    map = $map.flatten
-    i = x + 10 * y
-    stack.push( i )
-    visit[i] = 1;
-    until stack.size == 0 do
-      for j in [-10, -1, 10, 1] do
-        if i + j > 0 and i + j < ( $size + 1 ) ** 2 - 1
-        if map[i+j] == 0 and visit[i+j] == 0
-          stack.push( i+j )
-          visit[i+j] = 1
-          i = i + j
-          redo
+  def dead_end?( px, py, pnum )
+    case pnum
+    when 1
+      goal = 0
+    when 2
+      goal = $map_size - 1
+    end
+    visit = Array.new( $map_size ){ Array.new( $map_size, 0 ) }
+    i = py
+    j = px
+    stack_y = Array.new
+    stack_x = Array.new
+    stack_y.push( i )
+    stack_x.push( j )
+    visit[i][j] = 1;
+    until stack_y.size == 0 do
+      for dy in [-2, 2] do
+        for dx in [-2, 2] do
+          if i + dy > 0 and i + dy < $map_size - 1 and j + dx > 0 and j + dx < $map_size - 1
+            if map[i+dy][j+dx] == goal
+              return false
+            end
+            
+            if map[i+dy][j+dx] == 0 and visit[i+dy][j+dx] == 0
+              i += dy
+              j += dx
+              stack_y.push( i )
+              stack_x.push( j )
+              visit[i][j] = 1
+              dy = -2
+              redo
+            end
+          end
         end
       end
-      j = stack.pop
+      i = stack_y.pop
+      j = stack_x.pop
     end
     
-    return false
+    return true
   end
   
-  def setable?
+  def setable?( px, py, pnum )
     case @dir
     when :vertical
       return false if @y < 0 or @y >= $size
@@ -51,12 +70,42 @@ class Wall
       return false if @x < 0 or @x >= $size
     end
     
-    return false if self.dead_end?
+    return false if self.dead_end?( px, py, pnum )
     
     return true
   end
   
   def set
     @setflag = true
+  end
+  
+  def movable?( dir )
+  return false if @setflag
+  
+  case dir
+    when :up
+      return true if @y > 0
+    when :down
+      return true if @y < $size - 1
+    when :left
+      return true if @x > 0
+    when :right
+      return true if @x < $size - 1
+    end
+    
+    return false
+  end
+  
+  def move( dir )
+    case dir
+    when :up
+      @y -= 2
+    when :down
+      @y += 2
+    when :left
+      @x -= 2
+    when :right
+      @x += 2
+    end
   end
 end
