@@ -20,10 +20,10 @@ class Wall
     end
   end
   
-  def dead_end?( x, y, map )
+  def dead_end?( x, y )
     stack = Array.new
     visit = Array.new( $size * $size, 0 )
-    map.flatten!
+    map = $map.flatten
     i = x + 10 * y
     stack.push( i )
     visit[i] = 1;

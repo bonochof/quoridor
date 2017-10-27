@@ -4,12 +4,13 @@ class Director
   def initialize
     $pnum = 2
     $size = 9
+    map_size = $size * 2 - 1
     $turn = 1
     $mode = :pawn
+    $map = Array.new( map_size ){ Array.new( map_size, 0 ) }
     @actionflag = false
     @key = Hash.new
     @font = Font.new(14)
-    @map = Map.new
     @p1_pawn = Pawn.new(1)
     @p2_pawn = Pawn.new(2)
     @p1_wall = Array.new( 20/$pnum, Wall.new )
@@ -38,7 +39,7 @@ class Director
   def draw
     Window.draw_font( 100, 100, "turn:1", @font ) if $turn == 1
     Window.draw_font( 100, 100, "turn:2", @font ) if $turn == 2
-    Window.draw_font( 200, 200, "setable", @font ) if @p1_wall[0].setable?( @p1_pawn.x, @p1_pawn.y, @map )
+    Window.draw_font( 200, 200, "setable", @font ) if @p1_wall[0].setable?( @p1_pawn.x, @p1_pawn.y )
     Window.draw_font( 300, 300, "set", @font ) if @p2_wall[0].setflag
   end
   

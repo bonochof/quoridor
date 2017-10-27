@@ -4,7 +4,6 @@ require 'dxruby'
 require_relative 'director'
 require_relative 'pawn'
 require_relative 'wall'
-require_relative 'map'
 
 Window.caption = "Quoridor"
 Window.width = 800
