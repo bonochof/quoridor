@@ -15,6 +15,8 @@ class Director
     @p2_pawn = Pawn.new(2)
     @p1_wall = Array.new( 20/$pnum, Wall.new )
     @p2_wall = Array.new( 20/$pnum, Wall.new )
+    @p1_wnum = 0
+    @p2_wnum = 0
   end
   
   def input
@@ -44,31 +46,48 @@ class Director
   end
   
   def play
-=begin
-    @key.each do |key|
-      case $turn
-      when 1
-        @pawn1.move(key) if key == true and $mode == :pawn
-      when 2
-        @pawn2.move(key) if key == true and $mode == :pawn
-      end
-    end
-=end
     Window.windowed = !Window.windowed? if @key[:full_scr]
     
-    @p1_pawn.move( :up ) if @key[:p1_up] and @p1_pawn.movable?( :up )
-    @p1_pawn.move( :down ) if @key[:p1_down] and @p1_pawn.movable?( :down )
-    @p1_pawn.move( :left ) if @key[:p1_left] and @p1_pawn.movable?( :left )
-    @p1_pawn.move( :right ) if @key[:p1_right] and @p1_pawn.movable?( :right )
-=begin    
-    @p1_wall[0].x -= 1 if @key[:p1_left] and @p1_wall.setable?
-    @p1_wall[0].x += 1 if @key[:p1_right] and @p1_pawn.x < $size-1
-    @p1_wall[0].y -= 1 if @key[:p1_up] and @p1_pawn.y > 0
-    @p1_wall[0].y += 1 if @key[:p1_down] and @p1_pawn.y < $size-1
-    @p1_wall[0].set if @key[:p1_wall]
-    @p2_wall[0].set if @key[:p2_wall]
-=end    
+    case $turn
+    when 1
+      case $mode
+      when :pawn
+        @p1_pawn.move( :up ) if @key[:p1_up] and @p1_pawn.movable?( :up )
+        @p1_pawn.move( :down ) if @key[:p1_down] and @p1_pawn.movable?( :down )
+        @p1_pawn.move( :left ) if @key[:p1_left] and @p1_pawn.movable?( :left )
+        @p1_pawn.move( :right ) if @key[:p1_right] and @p1_pawn.movable?( :right )
+      when :wall
+        @p1_wall[@p1_wnum].move( :up ) if @key[:p1_up] and @p1_wall.movable?( :up )
+        @p1_wall[@p1_wnum].move( :down ) if @key[:p1_down] and @p1_wall.movable?( :down )
+        @p1_wall[@p1_wnum].move( :left ) if @key[:p1_left] and @p1_wall.movable?( :left )
+        @p1_wall[@p1_wnum].move( :right ) if @key[:p1_right] and @p1_wall.movable?( :right )
+      end
+    when 2
+      case $mode
+      when :pawn
+        @p2_pawn.move( :up ) if @key[:p2_up] and @p2_pawn.movable?( :up )
+        @p2_pawn.move( :down ) if @key[:p2_down] and @p2_pawn.movable?( :down )
+        @p2_pawn.move( :left ) if @key[:p2_left] and @p2_pawn.movable?( :left )
+        @p2_pawn.move( :right ) if @key[:p2_right] and @p2_pawn.movable?( :right )
+      when :wall
+        @p2_wall[@p2_wnum].move( :up ) if @key[:p2_up] and @p2_wall.movable?( :up )
+        @p2_wall[@p2_wnum].move( :down ) if @key[:p2_down] and @p2_wall.movable?( :down )
+        @p2_wall[@p2_wnum].move( :left ) if @key[:p2_left] and @p2_wall.movable?( :left )
+        @p2_wall[@p2_wnum].move( :right ) if @key[:p2_right] and @p2_wall.movable?( :right )
+      end
+    end
+    
     if @actionflag and @key[:turn_end]
+      if $mode == :wall
+        case $turn
+        when 1
+          @p1_wall[@p1_wnum].set
+          @p1_wnum += 1
+        when 2
+          @p2_wall[@p2_wnum].set
+          @p2_wnum += 1
+        end
+      end
       $turn += 1
       $turn = 1 if $turn > $pnum
       @actionflag = false
