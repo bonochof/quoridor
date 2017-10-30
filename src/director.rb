@@ -48,6 +48,14 @@ class Director
   def play
     Window.windowed = !Window.windowed? if @key[:full_scr]
     
+    if $turn == 1 and @key[:p1_wall] or $turn == 2 and @key[:p2_wall]
+    case $mode
+    when :pawn
+      $mode = :wall
+    when :wall
+      $mode = :pawn
+    end
+    
     case $turn
     when 1
       case $mode
