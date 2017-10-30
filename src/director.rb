@@ -1,4 +1,4 @@
-# coding: utf-8
+﻿# coding: utf-8
 
 class Director
   def initialize
@@ -39,21 +39,37 @@ class Director
   end
   
   def draw
-    Window.draw_font( 100, 100, "turn:1", @font ) if $turn == 1
-    Window.draw_font( 100, 100, "turn:2", @font ) if $turn == 2
-    Window.draw_font( 200, 200, "setable", @font ) if @p1_wall[0].setable?( @p1_pawn.x, @p1_pawn.y, @p1_pawn.num )
-    Window.draw_font( 300, 300, "set", @font ) if @p2_wall[0].setflag
+    Window.draw_font( 10, 10, "turn:1", @font ) if $turn == 1
+    Window.draw_font( 10, 10, "turn:2", @font ) if $turn == 2
+    Window.draw_font( 10, 30, "setable", @font ) if @p1_wall[0].setable?( @p1_pawn.x, @p1_pawn.y, @p1_pawn.num )
+    Window.draw_font( 10, 50, "set", @font ) if @p2_wall[0].setflag
+    
+    $map.each_with_index do |line, i|
+      line.each_with_index do |val, j|
+        case val
+        when 0
+          Window.draw_font( j*20+100, i*20+100, "０", @font )
+        when 1
+          Window.draw_font( j*20+100, i*20+100, "×", @font )
+        when 2
+          Window.draw_font( j*20+100, i*20+100, "←", @font )
+        when 3
+          Window.draw_font( j*20+100, i*20+100, "→", @font )
+        end
+      end
+    end
   end
   
   def play
     Window.windowed = !Window.windowed? if @key[:full_scr]
     
     if $turn == 1 and @key[:p1_wall] or $turn == 2 and @key[:p2_wall]
-    case $mode
-    when :pawn
-      $mode = :wall
-    when :wall
-      $mode = :pawn
+      case $mode
+      when :pawn
+        $mode = :wall
+      when :wall
+        $mode = :pawn
+      end
     end
     
     case $turn
