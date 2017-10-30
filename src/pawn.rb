@@ -34,23 +34,23 @@ class Pawn
     when :up
       if @y - 1 > 0
         return false if $map[@y-1][@x] == 1
+        return true
       end
-      return true if @y > 0
     when :down
-      if @y + 1 < $size * 2 - 2
+      if @y + 1 < $size * 2 - 1
         return false if $map[@y+1][@x] == 1
+        return true
       end
-      return true if @y < $size*2 - 2
     when :left
       if @x - 1 > 0
         return false if $map[@y][@x-1] == 1
+        return true
       end
-      return true if @x > 0
     when :right
-      if @x + 1 < $size * 2 - 2
+      if @x + 1 < $size * 2 - 1
         return false if $map[@y][@x+1] == 1
+        return true
       end
-      return true if @x < $size*2 - 2
     end
     
     return false

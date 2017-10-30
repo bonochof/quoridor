@@ -41,7 +41,7 @@ class Director
   def draw
     Window.draw_font( 10, 10, "turn:1", @font ) if $turn == 1
     Window.draw_font( 10, 10, "turn:2", @font ) if $turn == 2
-    Window.draw_font( 10, 30, "setable", @font ) if @p1_wall[0].setable?( @p1_pawn.x, @p1_pawn.y, @p1_pawn.num )
+    Window.draw_font( 10, 30, "wall", @font ) if $mode == :wall
     Window.draw_font( 10, 50, "set", @font ) if @p2_wall[0].setflag
     
     $map.each_with_index do |line, i|
@@ -63,7 +63,7 @@ class Director
   def play
     Window.windowed = !Window.windowed? if @key[:full_scr]
     
-    if $turn == 1 and @key[:p1_wall] or $turn == 2 and @key[:p2_wall]
+    if ( $turn == 1 and @key[:p1_wall] ) or ( $turn == 2 and @key[:p2_wall] )
       case $mode
       when :pawn
         $mode = :wall
@@ -81,10 +81,10 @@ class Director
         @p1_pawn.move( :left ) if @key[:p1_left] and @p1_pawn.movable?( :left )
         @p1_pawn.move( :right ) if @key[:p1_right] and @p1_pawn.movable?( :right )
       when :wall
-        @p1_wall[@p1_wnum].move( :up ) if @key[:p1_up] and @p1_wall.movable?( :up )
-        @p1_wall[@p1_wnum].move( :down ) if @key[:p1_down] and @p1_wall.movable?( :down )
-        @p1_wall[@p1_wnum].move( :left ) if @key[:p1_left] and @p1_wall.movable?( :left )
-        @p1_wall[@p1_wnum].move( :right ) if @key[:p1_right] and @p1_wall.movable?( :right )
+        @p1_wall[@p1_wnum].move( :up ) if @key[:p1_up] and @p1_wall[@p1_wnum].movable?( :up )
+        @p1_wall[@p1_wnum].move( :down ) if @key[:p1_down] and @p1_wall[@p1_wnum].movable?( :down )
+        @p1_wall[@p1_wnum].move( :left ) if @key[:p1_left] and @p1_wall[@p1_wnum].movable?( :left )
+        @p1_wall[@p1_wnum].move( :right ) if @key[:p1_right] and @p1_wall[@p1_wnum].movable?( :right )
       end
     when 2
       case $mode
@@ -94,10 +94,10 @@ class Director
         @p2_pawn.move( :left ) if @key[:p2_left] and @p2_pawn.movable?( :left )
         @p2_pawn.move( :right ) if @key[:p2_right] and @p2_pawn.movable?( :right )
       when :wall
-        @p2_wall[@p2_wnum].move( :up ) if @key[:p2_up] and @p2_wall.movable?( :up )
-        @p2_wall[@p2_wnum].move( :down ) if @key[:p2_down] and @p2_wall.movable?( :down )
-        @p2_wall[@p2_wnum].move( :left ) if @key[:p2_left] and @p2_wall.movable?( :left )
-        @p2_wall[@p2_wnum].move( :right ) if @key[:p2_right] and @p2_wall.movable?( :right )
+        @p2_wall[@p2_wnum].move( :up ) if @key[:p2_up] and @p2_wall[@p2_wnum].movable?( :up )
+        @p2_wall[@p2_wnum].move( :down ) if @key[:p2_down] and @p2_wall[@p2_wnum].movable?( :down )
+        @p2_wall[@p2_wnum].move( :left ) if @key[:p2_left] and @p2_wall[@p2_wnum].movable?( :left )
+        @p2_wall[@p2_wnum].move( :right ) if @key[:p2_right] and @p2_wall[@p2_wnum].movable?( :right )
       end
     end
     

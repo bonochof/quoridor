@@ -92,17 +92,29 @@ class Wall
   end
   
   def movable?( dir )
-  return false if @setflag
+    return false if @setflag
   
-  case dir
+    case dir
     when :up
-      return true if @y > 0
+      if @y - 1 > 0
+        return false if $map[@y-2][@x] == 1
+        return true
+      end
     when :down
-      return true if @y < $size - 1
+      if @y + 1 < $size * 2 - 2
+        return false if $map[@y+2][@x] == 1
+        return true
+      end
     when :left
-      return true if @x > 0
+      if @x - 1 > 0
+        return false if $map[@y][@x-2] == 1
+        return true
+      end
     when :right
-      return true if @x < $size - 1
+      if @x + 1 < $size * 2 - 2
+        return false if $map[@y][@x+2] == 1
+        return true
+      end
     end
     
     return false
@@ -110,10 +122,11 @@ class Wall
   
   def move( dir )
     $map[@y][@x] = 0
-    if @dir == vartical
+    case @dir
+    when :vertical
       $map[@y-1][@x] = 0
       $map[@y+1][@x] = 0
-    elsif @dir == horizontal
+    when :horizontal
       $map[@y][@x-1] = 0
       $map[@y][@x+1] = 0
     end
@@ -130,10 +143,11 @@ class Wall
     end
     
     $map[@y][@x] = 1
-    if @dir == vartical
+    case @dir
+    when :vertical
       $map[@y-1][@x] = 1
       $map[@y+1][@x] = 1
-    elsif @dir == horizontal
+    when :horizontal
       $map[@y-1][@x] = 1
       $map[@y+1][@x] = 1
     end
