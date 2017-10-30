@@ -3,7 +3,7 @@
 class Wall
   attr_reader :setflag
   attr_writer :x, :y
-
+  
   def initialize
     @x = 1
     @y = 1
