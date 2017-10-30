@@ -9,14 +9,26 @@ class Wall
     @y = 1
     @dir = :vertical
     @setflag = false
+    
+    $map[@y][@x] = 1
+    $map[@y-1][@x] = 1
+    $map[@y+1][@x] = 1
   end
   
   def change_dir
     case @dir
     when :vertical
       @dir = :horizontal
+      $map[@y-1][@x] = 0
+      $map[@y+1][@x] = 0
+      $map[@y][@x-1] = 1
+      $map[@y][@x+1] = 1
     when :horizontal
       @dir = :vertical
+      $map[@y][@x-1] = 0
+      $map[@y][@x+1] = 0
+      $map[@y-1][@x] = 1
+      $map[@y+1][@x] = 1
     end
   end
   
@@ -97,6 +109,15 @@ class Wall
   end
   
   def move( dir )
+    $map[@y][@x] = 0
+    if @dir == vartical
+      $map[@y-1][@x] = 0
+      $map[@y+1][@x] = 0
+    elsif @dir == horizontal
+      $map[@y][@x-1] = 0
+      $map[@y][@x+1] = 0
+    end
+    
     case dir
     when :up
       @y -= 2
@@ -106,6 +127,15 @@ class Wall
       @x -= 2
     when :right
       @x += 2
+    end
+    
+    $map[@y][@x] = 1
+    if @dir == vartical
+      $map[@y-1][@x] = 1
+      $map[@y+1][@x] = 1
+    elsif @dir == horizontal
+      $map[@y-1][@x] = 1
+      $map[@y+1][@x] = 1
     end
   end
 end
