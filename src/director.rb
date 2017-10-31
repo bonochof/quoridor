@@ -4,10 +4,10 @@ class Director
   def initialize
     $pnum = 2
     $size = 9
-    $map_size = $size * 2 - 1
+    $mapsize = $size * 2 - 1
     $turn = 1
     $mode = :pawn
-    $map = Array.new( $map_size ){ Array.new( $map_size, 0 ) }
+    $map = Array.new( $mapsize ){ Array.new( $mapsize, 0 ) }
     $actionflag = false
     @key = Hash.new
     @font = Font.new(14)
