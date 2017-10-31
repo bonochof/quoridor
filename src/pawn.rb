@@ -1,8 +1,6 @@
 # coding: utf-8
 
 class Pawn
-  attr_reader :x, :y, :num
-  
   def initialize( pnum )
     case pnum
     when 1

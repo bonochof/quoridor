@@ -1,14 +1,10 @@
 # coding: utf-8
 
 class Wall
-  attr_reader :setflag
-  attr_writer :x, :y
-  
   def initialize
     @x = 1
     @y = 1
     @dir = :vertical
-    @setflag = false
     
     $map[@y][@x] = 1
     $map[@y-1][@x] = 1
@@ -85,10 +81,6 @@ class Wall
     return false if self.dead_end?( px, py, pnum )
     
     return true
-  end
-  
-  def set
-    @setflag = true
   end
   
   def movable?( dir )

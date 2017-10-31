@@ -42,7 +42,6 @@ class Director
     Window.draw_font( 10, 10, "turn:1", @font ) if $turn == 1
     Window.draw_font( 10, 10, "turn:2", @font ) if $turn == 2
     Window.draw_font( 10, 30, "wall", @font ) if $mode == :wall
-    Window.draw_font( 10, 50, "set", @font ) if @p2_wall[0].setflag
     
     $map.each_with_index do |line, i|
       line.each_with_index do |val, j|
@@ -107,10 +106,8 @@ class Director
       if $mode == :wall
         case $turn
         when 1
-          @p1_wall[@p1_wnum].set
           @p1_wnum += 1
         when 2
-          @p2_wall[@p2_wnum].set
           @p2_wnum += 1
         end
         $mode = :pawn
