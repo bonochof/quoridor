@@ -151,5 +151,7 @@ class Wall
       $map[@y][@x-1] = 1
       $map[@y][@x+1] = 1
     end
+    
+    $actionflag = true
   end
 end

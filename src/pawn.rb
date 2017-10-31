@@ -77,5 +77,7 @@ class Pawn
 
     $map[@y][@x] = 2 if $turn == 1
     $map[@y][@x] = 3 if $turn == 2
+    
+    $actionflag = true
   end
 end
