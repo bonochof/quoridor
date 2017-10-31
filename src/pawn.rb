@@ -63,12 +63,16 @@ class Pawn
     case dir
     when :up
       @y -= 2
+      @y -= 2 if self.movable?( :up ) and $map[@y][@x] != 0
     when :down
       @y += 2
+      @y += 2 if self.movable?( :down ) and $map[@y][@x] != 0
     when :left
       @x -= 2
+      @x -= 2 if self.movable?( :left ) and $map[@y][@x] != 0
     when :right
       @x += 2
+      @x += 2 if self.movable?( :right ) and $map[@y][@x] != 0
     end
 
     $map[@y][@x] = 2 if $turn == 1
