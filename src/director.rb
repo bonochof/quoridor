@@ -85,6 +85,7 @@ class Director
         @p1_wall[@p1_wnum].move( :down ) if @key[:p1_down] and @p1_wall[@p1_wnum].movable?( :down )
         @p1_wall[@p1_wnum].move( :left ) if @key[:p1_left] and @p1_wall[@p1_wnum].movable?( :left )
         @p1_wall[@p1_wnum].move( :right ) if @key[:p1_right] and @p1_wall[@p1_wnum].movable?( :right )
+        @p1_wall[@p1_wnum].spin if @key[:p1_spin]
       end
     when 2
       case $mode
@@ -98,6 +99,7 @@ class Director
         @p2_wall[@p2_wnum].move( :down ) if @key[:p2_down] and @p2_wall[@p2_wnum].movable?( :down )
         @p2_wall[@p2_wnum].move( :left ) if @key[:p2_left] and @p2_wall[@p2_wnum].movable?( :left )
         @p2_wall[@p2_wnum].move( :right ) if @key[:p2_right] and @p2_wall[@p2_wnum].movable?( :right )
+        @p2_wall[@p2_wnum].spin if @key[:p2_spin]
       end
     end
     

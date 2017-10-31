@@ -15,7 +15,7 @@ class Wall
     $map[@y+1][@x] = 1
   end
   
-  def change_dir
+  def spin
     case @dir
     when :vertical
       @dir = :horizontal
@@ -148,8 +148,8 @@ class Wall
       $map[@y-1][@x] = 1
       $map[@y+1][@x] = 1
     when :horizontal
-      $map[@y-1][@x] = 1
-      $map[@y+1][@x] = 1
+      $map[@y][@x-1] = 1
+      $map[@y][@x+1] = 1
     end
   end
 end
