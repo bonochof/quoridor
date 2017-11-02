@@ -13,8 +13,8 @@ class Director
     @font = Font.new(14)
     @p1_pawn = Pawn.new(1)
     @p2_pawn = Pawn.new(2)
-    @p1_wall = Array.new( 20/$pnum, Wall.new )
-    @p2_wall = Array.new( 20/$pnum, Wall.new )
+    @p1_wall = Array.new( 20/$pnum ).map{ Wall.new }
+    @p2_wall = Array.new( 20/$pnum ).map{ Wall.new }
     @p1_wnum = 0
     @p2_wnum = 0
     @endflag = false
