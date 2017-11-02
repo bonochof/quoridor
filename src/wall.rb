@@ -4,6 +4,8 @@ class Wall
   def initialize
     @x = 1
     @y = 1
+    @x_old = @x
+    @y_old = @y
     @dir = :vertical
     
     $map[@y][@x] = 1
@@ -84,8 +86,6 @@ class Wall
   end
   
   def movable?( dir )
-    return false if @setflag
-  
     case dir
     when :up
       if @y - 1 > 0
@@ -144,6 +144,11 @@ class Wall
       $map[@y][@x+1] = 1
     end
     
-    $actionflag = true
+    $delta = ( @x - @x_old ).abs + ( @y - @y_old ).abs
+  end
+  
+  def update
+    @x_old = @x
+    @y_old = @y
   end
 end

@@ -22,6 +22,8 @@ class Pawn
     @num = pnum
     @x = pos_x
     @y = pos_y
+    @x_old = @x
+    @y_old = @y
     
     $map[@y][@x] = 2 if @num == 1
     $map[@y][@x] = 3 if @num == 2
@@ -30,24 +32,28 @@ class Pawn
   def movable?( dir )
     case dir
     when :up
+      return false if $delta > 0 and @y - 2 != @y_old
       if @y - 1 > 0
         return false if $map[@y-1][@x] == 1
         return false if $map[@y-2][@x] != 0 and @y - 3 < 0
         return true
       end
     when :down
+      return false if $delta > 0 and @y + 2 != @y_old
       if @y + 1 < $mapsize
         return false if $map[@y+1][@x] == 1
         return false if $map[@y+2][@x] != 0 and @y + 3 > $mapsize
         return true
       end
     when :left
+      return false if $delta > 0 and @x - 2 != @x_old
       if @x - 1 > 0
         return false if $map[@y][@x-1] == 1
         return false if $map[@y][@x-2] != 0 and @x - 3 < 0
         return true
       end
     when :right
+      return false if $delta > 0 and @x + 2 != @x_old
       if @x + 1 < $mapsize
         return false if $map[@y][@x+1] == 1
         return false if $map[@y][@x+2] != 0 and @x + 3 > $mapsize
@@ -80,6 +86,11 @@ class Pawn
     $map[@y][@x] = 2 if $turn == 1
     $map[@y][@x] = 3 if $turn == 2
     
-    $actionflag = true
+    $delta = ( @x - @x_old ).abs + ( @y - @y_old ).abs
+  end
+  
+  def update
+    @x_old = @x
+    @y_old = @y
   end
 end

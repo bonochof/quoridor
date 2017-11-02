@@ -8,7 +8,7 @@ class Director
     $turn = 1
     $mode = :pawn
     $map = Array.new( $mapsize ){ Array.new( $mapsize, 0 ) }
-    $actionflag = false
+    $delta = 0
     @key = Hash.new
     @font = Font.new(14)
     @p1_pawn = Pawn.new(1)
@@ -102,19 +102,29 @@ class Director
       end
     end
     
-    if $actionflag and @key[:turn_end]
-      if $mode == :wall
+    if $delta > 0 and @key[:turn_end]
+      case $mode
+      when :pawn
         case $turn
         when 1
+          @p1_pawn.update
+        when 2
+          @p2_pawn.update
+        end
+      when :wall
+        case $turn
+        when 1
+          @p1_wall.update
           @p1_wnum += 1
         when 2
+          @p2_wall.update
           @p2_wnum += 1
         end
         $mode = :pawn
       end
       $turn += 1
       $turn = 1 if $turn > $pnum
-      $actionflag = false
+      $delta = 0
     end
   end
 end
