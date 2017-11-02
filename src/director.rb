@@ -17,6 +17,7 @@ class Director
     @p2_wall = Array.new( 20/$pnum, Wall.new )
     @p1_wnum = 0
     @p2_wnum = 0
+    @endflag = false
   end
   
   def input
@@ -62,69 +63,73 @@ class Director
   def play
     Window.windowed = !Window.windowed? if @key[:full_scr]
     
-    if ( $turn == 1 and @key[:p1_wall] ) or ( $turn == 2 and @key[:p2_wall] )
-      case $mode
-      when :pawn
-        $mode = :wall
-      when :wall
-        $mode = :pawn
-      end
-    end
-    
-    case $turn
-    when 1
-      case $mode
-      when :pawn
-        @p1_pawn.move( :up ) if @key[:p1_up] and @p1_pawn.movable?( :up )
-        @p1_pawn.move( :down ) if @key[:p1_down] and @p1_pawn.movable?( :down )
-        @p1_pawn.move( :left ) if @key[:p1_left] and @p1_pawn.movable?( :left )
-        @p1_pawn.move( :right ) if @key[:p1_right] and @p1_pawn.movable?( :right )
-      when :wall
-        @p1_wall[@p1_wnum].move( :up ) if @key[:p1_up] and @p1_wall[@p1_wnum].movable?( :up )
-        @p1_wall[@p1_wnum].move( :down ) if @key[:p1_down] and @p1_wall[@p1_wnum].movable?( :down )
-        @p1_wall[@p1_wnum].move( :left ) if @key[:p1_left] and @p1_wall[@p1_wnum].movable?( :left )
-        @p1_wall[@p1_wnum].move( :right ) if @key[:p1_right] and @p1_wall[@p1_wnum].movable?( :right )
-        @p1_wall[@p1_wnum].spin if @key[:p1_spin]
-      end
-    when 2
-      case $mode
-      when :pawn
-        @p2_pawn.move( :up ) if @key[:p2_up] and @p2_pawn.movable?( :up )
-        @p2_pawn.move( :down ) if @key[:p2_down] and @p2_pawn.movable?( :down )
-        @p2_pawn.move( :left ) if @key[:p2_left] and @p2_pawn.movable?( :left )
-        @p2_pawn.move( :right ) if @key[:p2_right] and @p2_pawn.movable?( :right )
-      when :wall
-        @p2_wall[@p2_wnum].move( :up ) if @key[:p2_up] and @p2_wall[@p2_wnum].movable?( :up )
-        @p2_wall[@p2_wnum].move( :down ) if @key[:p2_down] and @p2_wall[@p2_wnum].movable?( :down )
-        @p2_wall[@p2_wnum].move( :left ) if @key[:p2_left] and @p2_wall[@p2_wnum].movable?( :left )
-        @p2_wall[@p2_wnum].move( :right ) if @key[:p2_right] and @p2_wall[@p2_wnum].movable?( :right )
-        @p2_wall[@p2_wnum].spin if @key[:p2_spin]
-      end
-    end
-    
-    if $delta > 0 and @key[:turn_end]
-      case $mode
-      when :pawn
-        case $turn
-        when 1
-          @p1_pawn.update
-        when 2
-          @p2_pawn.update
+    if !@endflag
+      if ( $turn == 1 and @key[:p1_wall] ) or ( $turn == 2 and @key[:p2_wall] )
+        case $mode
+        when :pawn
+          $mode = :wall
+        when :wall
+          $mode = :pawn
         end
-      when :wall
-        case $turn
-        when 1
-          @p1_wall[@p1_wnum].update
-          @p1_wnum += 1
-        when 2
-          @p2_wall[@p2_wnum].update
-          @p2_wnum += 1
-        end
-        $mode = :pawn
       end
-      $turn += 1
-      $turn = 1 if $turn > $pnum
-      $delta = 0
+      
+      case $turn
+      when 1
+        case $mode
+        when :pawn
+          @p1_pawn.move( :up ) if @key[:p1_up] and @p1_pawn.movable?( :up )
+          @p1_pawn.move( :down ) if @key[:p1_down] and @p1_pawn.movable?( :down )
+          @p1_pawn.move( :left ) if @key[:p1_left] and @p1_pawn.movable?( :left )
+          @p1_pawn.move( :right ) if @key[:p1_right] and @p1_pawn.movable?( :right )
+        when :wall
+          @p1_wall[@p1_wnum].move( :up ) if @key[:p1_up] and @p1_wall[@p1_wnum].movable?( :up )
+          @p1_wall[@p1_wnum].move( :down ) if @key[:p1_down] and @p1_wall[@p1_wnum].movable?( :down )
+          @p1_wall[@p1_wnum].move( :left ) if @key[:p1_left] and @p1_wall[@p1_wnum].movable?( :left )
+          @p1_wall[@p1_wnum].move( :right ) if @key[:p1_right] and @p1_wall[@p1_wnum].movable?( :right )
+          @p1_wall[@p1_wnum].spin if @key[:p1_spin]
+        end
+      when 2
+        case $mode
+        when :pawn
+          @p2_pawn.move( :up ) if @key[:p2_up] and @p2_pawn.movable?( :up )
+          @p2_pawn.move( :down ) if @key[:p2_down] and @p2_pawn.movable?( :down )
+          @p2_pawn.move( :left ) if @key[:p2_left] and @p2_pawn.movable?( :left )
+          @p2_pawn.move( :right ) if @key[:p2_right] and @p2_pawn.movable?( :right )
+        when :wall
+          @p2_wall[@p2_wnum].move( :up ) if @key[:p2_up] and @p2_wall[@p2_wnum].movable?( :up )
+          @p2_wall[@p2_wnum].move( :down ) if @key[:p2_down] and @p2_wall[@p2_wnum].movable?( :down )
+          @p2_wall[@p2_wnum].move( :left ) if @key[:p2_left] and @p2_wall[@p2_wnum].movable?( :left )
+          @p2_wall[@p2_wnum].move( :right ) if @key[:p2_right] and @p2_wall[@p2_wnum].movable?( :right )
+          @p2_wall[@p2_wnum].spin if @key[:p2_spin]
+        end
+      end
+      
+      if $delta > 0 and @key[:turn_end]
+        @endflag = true if @p1_pawn.goal? or @p2_pawn.goal?
+        
+        case $mode
+        when :pawn
+          case $turn
+          when 1
+            @p1_pawn.update
+          when 2
+            @p2_pawn.update
+          end
+        when :wall
+          case $turn
+          when 1
+            @p1_wall[@p1_wnum].update
+            @p1_wnum += 1
+          when 2
+            @p2_wall[@p2_wnum].update
+            @p2_wnum += 1
+          end
+          $mode = :pawn
+        end
+        $turn += 1
+        $turn = 1 if $turn > $pnum
+        $delta = 0
+      end
     end
   end
 end

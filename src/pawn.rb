@@ -93,4 +93,14 @@ class Pawn
     @x_old = @x
     @y_old = @y
   end
+  
+  def goal?
+    case @num
+    when 1
+      return true if @x == 0
+    when 2
+      return true if @x == $mapsize - 1
+    end
+    return false
+  end
 end
