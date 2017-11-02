@@ -48,7 +48,7 @@ class Wall
     until stack_y.size == 0 do
       for dy in [-2, 2] do
         for dx in [-2, 2] do
-          if i + dy > 0 and i + dy < $map_size - 1 and j + dx > 0 and j + dx < $map_size - 1
+          if i + dy > 0 and i + dy < $mapsize - 1 and j + dx > 0 and j + dx < $mapsize - 1
             if j + dx == goal
               return false
             end
@@ -75,9 +75,9 @@ class Wall
   def setable?( px, py, pnum )
     case @dir
     when :vertical
-      return false if @y < 0 or @y >= $size
+      return false if @y < 0 or @y >= $mapsize
     when :horizontal
-      return false if @x < 0 or @x >= $size
+      return false if @x < 0 or @x >= $mapsize
     end
     
     return false if self.dead_end?( px, py, pnum )
@@ -93,7 +93,7 @@ class Wall
         return true
       end
     when :down
-      if @y + 1 < $size * 2 - 2
+      if @y + 1 < $mapsize - 1
         return false if $map[@y+2][@x] == 1
         return true
       end
@@ -103,7 +103,7 @@ class Wall
         return true
       end
     when :right
-      if @x + 1 < $size * 2 - 2
+      if @x + 1 < $mapsize - 1
         return false if $map[@y][@x+2] == 1
         return true
       end
