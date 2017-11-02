@@ -89,22 +89,22 @@ class Wall
     case dir
     when :up
       if @y - 1 > 0
-        return false if $map[@y-2][@x] == 1
+        return false if ( $map[@y-2][@x] == 1 ) or ( @dir == :vertical and $map[@y-3][@x] == 1 ) or ( @dir == :horizontal and ( $map[@y-2][@x-1] == 1 or $map[@y-2][@x+1] == 1 ) )
         return true
       end
     when :down
       if @y + 1 < $mapsize - 1
-        return false if $map[@y+2][@x] == 1
+        return false if ( $map[@y+2][@x] == 1 ) or ( @dir == :vertical and $map[@y+3][@x] == 1 ) or ( @dir == :horizontal and ( $map[@y+2][@x-1] == 1 or $map[@y+2][@x+1] == 1 ) )
         return true
       end
     when :left
       if @x - 1 > 0
-        return false if $map[@y][@x-2] == 1
+        return false if ( $map[@y][@x-2] == 1 ) or ( @dir == :vertical and ( $map[@y-1][@x-2] == 1 or $map[@y+1][@x-2] == 1 ) ) or ( @dir == :horizontal and $map[@y][@x-3] == 1 )
         return true
       end
     when :right
       if @x + 1 < $mapsize - 1
-        return false if $map[@y][@x+2] == 1
+        return false if ( $map[@y][@x+2] == 1 ) or ( @dir == :vertical and ( $map[@y-1][@x+2] == 1 or $map[@y+1][@x+2] == 1 ) ) or ( @dir == :horizontal and $map[@y][@x+3] == 1 )
         return true
       end
     end
