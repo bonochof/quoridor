@@ -114,10 +114,10 @@ class Director
       when :wall
         case $turn
         when 1
-          @p1_wall.update
+          @p1_wall[@p1_wnum].update
           @p1_wnum += 1
         when 2
-          @p2_wall.update
+          @p2_wall[@p2_wnum].update
           @p2_wnum += 1
         end
         $mode = :pawn
