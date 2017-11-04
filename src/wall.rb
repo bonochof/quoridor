@@ -35,16 +35,16 @@ class Wall
     when 1
       goal = 0
     when 2
-      goal = $map_size - 1
+      goal = $mapsize - 1
     end
-    visit = Array.new( $map_size ){ Array.new( $map_size, 0 ) }
+    visit = Array.new( $mapsize ){ Array.new( $mapsize, 0 ) }
     i = py
     j = px
     stack_y = Array.new
     stack_x = Array.new
     stack_y.push( i )
     stack_x.push( j )
-    visit[i][j] = 1;
+    visit[i][j] = 1
     until stack_y.size == 0 do
       for dy in [-2, 2] do
         for dx in [-2, 2] do
