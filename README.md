@@ -17,6 +17,13 @@
 
 1手でも早く一番奥に到達できれば勝利．
 
+## 実行手順
+```
+$ gem install dxruby
+$ cd src
+$ ruby main.rb
+```
+
 ## 開発環境
 
 ### 言語
