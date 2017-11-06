@@ -48,7 +48,7 @@ class Director
       line.each_with_index do |val, j|
         case val
         when 0
-          Window.draw_font( j*20+100, i*20+100, "０", @font )
+          Window.draw_font( j*20+100, i*20+100, "０", @font ) if i % 2 == 0 and j % 2 == 0
         when 1
           Window.draw_font( j*20+100, i*20+100, "×", @font )
         when 2
