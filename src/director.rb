@@ -64,7 +64,7 @@ class Director
     Window.windowed = !Window.windowed? if @key[:full_scr]
     
     if !@endflag
-      if ( $turn == 1 and @key[:p1_wall] ) or ( $turn == 2 and @key[:p2_wall] )
+      if $delta == 0 and ( ( $turn == 1 and @key[:p1_wall] ) or ( $turn == 2 and @key[:p2_wall] ) )
         case $mode
         when :pawn
           $mode = :wall
