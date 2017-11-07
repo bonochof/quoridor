@@ -25,14 +25,14 @@ class Director
     @key[:p1_down]  = Input.key_push?( K_DOWN )
     @key[:p1_left]  = Input.key_push?( K_LEFT )
     @key[:p1_right] = Input.key_push?( K_RIGHT )
-    @key[:p1_wall]  = Input.key_push?( K_RSHIFT )
+    @key[:p1_mode]  = Input.key_push?( K_RSHIFT )
     @key[:p1_spin]  = Input.key_push?( K_RETURN )
     
     @key[:p2_up]    = Input.key_push?( K_W )
     @key[:p2_down]  = Input.key_push?( K_S )
     @key[:p2_left]  = Input.key_push?( K_A )
     @key[:p2_right] = Input.key_push?( K_D )
-    @key[:p2_wall]  = Input.key_push?( K_LSHIFT )
+    @key[:p2_mode]  = Input.key_push?( K_LSHIFT )
     @key[:p2_spin]  = Input.key_push?( K_Z )
     
     @key[:turn_end] = Input.key_push?( K_SPACE )
@@ -64,7 +64,7 @@ class Director
     Window.windowed = !Window.windowed? if @key[:full_scr]
     
     if !@endflag
-      if $delta == 0 and ( ( $turn == 1 and @key[:p1_wall] ) or ( $turn == 2 and @key[:p2_wall] ) )
+      if $delta == 0 and ( ( $turn == 1 and @key[:p1_mode] ) or ( $turn == 2 and @key[:p2_mode] ) )
         case $mode
         when :pawn
           $mode = :wall
