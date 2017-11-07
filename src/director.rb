@@ -43,6 +43,8 @@ class Director
     Window.draw_font( 10, 10, "turn:1", @font ) if $turn == 1
     Window.draw_font( 10, 10, "turn:2", @font ) if $turn == 2
     Window.draw_font( 10, 30, "wall", @font ) if $mode == :wall
+    Window.draw_font( 740, 540, (20/$pnum-@p1_wnum).to_s, @font )
+    Window.draw_font( 20, 540, (20/$pnum-@p2_wnum).to_s, @font )
     
     $map.each_with_index do |line, i|
       line.each_with_index do |val, j|
