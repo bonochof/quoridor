@@ -16,12 +16,14 @@ class Wall
   def spin
     case @dir
     when :vertical
+      return if $map[@y][@x-1] == 1 or $map[@y][@x-1] == 1
       @dir = :horizontal
       $map[@y-1][@x] = 0
       $map[@y+1][@x] = 0
       $map[@y][@x-1] = 1
       $map[@y][@x+1] = 1
     when :horizontal
+      return if $map[@y-1][@x] == 1 or $map[@y+1][@x] == 1
       @dir = :vertical
       $map[@y][@x-1] = 0
       $map[@y][@x+1] = 0
