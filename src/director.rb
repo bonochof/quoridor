@@ -43,7 +43,7 @@ class Director
     Window.draw_font( 10, 10, "turn:1", @font ) if $turn == 1
     Window.draw_font( 10, 10, "turn:2", @font ) if $turn == 2
     Window.draw_font( 10, 30, "wall", @font ) if $mode == :wall
-    Window.draw_font( 100, 10, "setable", @font ) if( $turn == 1 and @p1_wall[@p1_wnum].setable?(@p1_pawn.x, @p1_pawn.y, 1) ) or ( $turn == 2 and @p2_wall[@p2_wnum].setable?(@p2_pawn.x, @p2_pawn.y, 2) )
+    Window.draw_font( 100, 10, "setable", @font ) if @p1_wnum > 0 and @p2_wnum > 0 and ( ( $turn == 1 and @p1_wall[@p1_wnum].setable?(@p1_pawn.x, @p1_pawn.y, 1) ) or ( $turn == 2 and @p2_wall[@p2_wnum].setable?(@p2_pawn.x, @p2_pawn.y, 2) ) )
     Window.draw_font( 740, 540, (20/$pnum-@p1_wnum).to_s, @font )
     Window.draw_font( 20, 540, (20/$pnum-@p2_wnum).to_s, @font )
     
@@ -70,7 +70,7 @@ class Director
       if $delta == 0 and ( ( $turn == 1 and @key[:p1_mode] ) or ( $turn == 2 and @key[:p2_mode] ) )
         case $mode
         when :pawn
-          $mode = :wall
+          $mode = :wall if ( $turn == 1 and @p1_wnum < 20 / $pnum ) or ( $turn == 2 and @p2_wnum < 20 / $pnum )
         when :wall
           $mode = :pawn
         end
