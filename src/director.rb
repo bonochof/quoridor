@@ -18,6 +18,7 @@ class Director
     @p1_wnum = 0
     @p2_wnum = 0
     @endflag = false
+    @image_tile = Image.load( '../data/image/tile.png' )
   end
   
   def input
@@ -51,13 +52,14 @@ class Director
       line.each_with_index do |val, j|
         case val
         when 0
-          Window.draw_font( j*20+100, i*20+100, "０", @font ) if i % 2 == 0 and j % 2 == 0
+          #Window.draw_font( j*32+100, i*32+100, "０", @font ) if i % 2 == 0 and j % 2 == 0
+          Window.draw( j*33+100, i*33+30, @image_tile)
         when 1
-          Window.draw_font( j*20+100, i*20+100, "×", @font )
+          Window.draw_font( j*33+100, i*33+30, "×", @font )
         when 2
-          Window.draw_font( j*20+100, i*20+100, "←", @font )
+          Window.draw_font( j*33+100, i*33+30, "←", @font )
         when 3
-          Window.draw_font( j*20+100, i*20+100, "→", @font )
+          Window.draw_font( j*33+100, i*33+30, "→", @font )
         end
       end
     end
