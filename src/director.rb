@@ -1,5 +1,3 @@
-# coding: utf-8
-
 class Director
   def initialize
     $pnum = 2
@@ -52,8 +50,8 @@ class Director
       line.each_with_index do |val, j|
         case val
         when 0
-          #Window.draw_font( j*32+100, i*32+100, "０", @font ) if i % 2 == 0 and j % 2 == 0
-          Window.draw( j*33+100, i*33+30, @image_tile)
+          Window.draw_font( j*32+100, i*32+30, "０", @font ) if i % 2 == 0 and j % 2 == 0
+          #Window.draw( j*33+100, i*33+30, @image_tile)
         when 1
           Window.draw_font( j*33+100, i*33+30, "×", @font )
         when 2
@@ -66,7 +64,7 @@ class Director
   end
   
   def play
-    Window.windowed = !Window.windowed? if @key[:full_scr]
+    #Window.windowed = !Window.windowed? if @key[:full_scr]
     
     if !@endflag
       if $delta == 0 and ( ( $turn == 1 and @key[:p1_mode] ) or ( $turn == 2 and @key[:p2_mode] ) )

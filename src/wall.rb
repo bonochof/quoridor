@@ -1,5 +1,3 @@
-# coding: utf-8
-
 class Wall
   def initialize
     @x = 1
@@ -48,8 +46,8 @@ class Wall
     stack_x.push( j )
     visit[i][j] = 1
     until stack_y.size == 0 do
-      for dy in [-2, 2] do
-        for dx in [-2, 2] do
+      [-2, 2].each do |dy|
+        [-2, 2].each do |dx|
           if i + dy > 0 and i + dy < $mapsize - 1 and j + dx > 0 and j + dx < $mapsize - 1
             if j + dx == goal
               return false
