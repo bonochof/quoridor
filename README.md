@@ -1,37 +1,24 @@
-# Quoridor(�R���h�[��)
+# Quoridor(コリドール)
 
-## Quoridor�Ƃ́H
+## Quoridorとは？
 
-���ɊȒP�ȃA�u�X�g���N�g�Q�[���D
+完全情報のアブストラクトゲーム．<br>
+各プレイヤーはコマ1つと壁10個を所持している．<br>
+ターン制で進行し，行動を以下から選択する．<br>
+1. 自分のコマを上下左右1マス移動<br>
+1. 好きな場所に手持ちの壁を設置する<br>
+コマは壁を超えることができず，壁は完全に進行できなくなるような置き方ができない．<br>
+コマが隣り合った場合は，相手のコマを跳び越すことができる．<br>
+1手でも早く一番奥に到達できれば勝利．<br>
 
-�e�v���C���[�̓R�}1�ƕ�10���������Ă���D
+## 開発環境
 
-�^�[�����Ői�s���C�s�����ȉ�����I������D
+### 言語
+Ruby(OpalによりJavaScriptに変換される)
 
-1. �����̃R�}���㉺���E1�}�X�ړ�
-1. �D���ȏꏊ�Ɏ莝���̕ǂ�ݒu����
+### ライブラリ
+DxOpal
 
-�R�}�͕ǂ𒴂��邱�Ƃ��ł����C�ǂ͊��S�ɐi�s�ł��Ȃ��Ȃ�悤�Ȓu�������ł��Ȃ��D
-
-�R�}���ׂ荇�����ꍇ�́C����̃R�}�𒵂щz�����Ƃ��ł���D
-
-1��ł�������ԉ��ɓ��B�ł���Ώ����D
-
-## ���s�菇
-```
-$ gem install dxruby
-$ cd src
-$ ruby main.rb
-```
-
-## �J����
-
-### ����
-Ruby
-
-### ���C�u����
-DxRuby
-
-## �J����
+## 開発者
 * [bonochof](https://github.com/bonochof)
 * [ko-ke-shi](https://github.com/ko-ke-shi)
