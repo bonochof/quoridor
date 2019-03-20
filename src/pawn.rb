@@ -1,7 +1,7 @@
 class Pawn
   attr_reader :x, :y
   
-  def initialize( pnum )
+  def initialize (pnum)
     case pnum
     when 1
       pos_x = 16
@@ -29,7 +29,7 @@ class Pawn
     $map[@y][@x] = 3 if @num == 2
   end
   
-  def movable?( dir )
+  def movable? (dir)
     case dir
     when :up
       return false if $delta > 0 and @y - 2 != @y_old
@@ -64,29 +64,29 @@ class Pawn
     return false
   end
   
-  def move( dir )
+  def move (dir)
     $map[@y][@x] = 0 if $turn == 1
     $map[@y][@x] = 0 if $turn == 2
     
     case dir
     when :up
       @y -= 2
-      @y -= 2 if self.movable?( :up ) and $map[@y][@x] != 0
+      @y -= 2 if self.movable?(:up) and $map[@y][@x] != 0
     when :down
       @y += 2
-      @y += 2 if self.movable?( :down ) and $map[@y][@x] != 0
+      @y += 2 if self.movable?(:down) and $map[@y][@x] != 0
     when :left
       @x -= 2
-      @x -= 2 if self.movable?( :left ) and $map[@y][@x] != 0
+      @x -= 2 if self.movable?(:left) and $map[@y][@x] != 0
     when :right
       @x += 2
-      @x += 2 if self.movable?( :right ) and $map[@y][@x] != 0
+      @x += 2 if self.movable?(:right) and $map[@y][@x] != 0
     end
 
     $map[@y][@x] = 2 if $turn == 1
     $map[@y][@x] = 3 if $turn == 2
     
-    $delta = ( @x - @x_old ).abs + ( @y - @y_old ).abs
+    $delta = (@x - @x_old).abs + (@y - @y_old).abs
   end
   
   def update
