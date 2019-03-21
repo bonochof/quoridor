@@ -30,20 +30,20 @@ class Wall
     end
   end
   
-  def dead_end?( px, py, pnum )
+  def dead_end? (px, py, pnum)
     case pnum
     when 1
       goal = 0
     when 2
       goal = $mapsize - 1
     end
-    visit = Array.new( $mapsize ){ Array.new( $mapsize, 0 ) }
+    visit = Array.new($mapsize) { Array.new($mapsize, 0) }
     i = py
     j = px
     stack_y = Array.new
     stack_x = Array.new
-    stack_y.push( i )
-    stack_x.push( j )
+    stack_y.push(i)
+    stack_x.push(j)
     visit[i][j] = 1
     until stack_y.size == 0 do
       [-2, 2].each do |dy|
@@ -56,8 +56,8 @@ class Wall
             if $map[i+dy][j+dx] == 0 and visit[i+dy][j+dx] == 0
               i += dy
               j += dx
-              stack_y.push( i )
-              stack_x.push( j )
+              stack_y.push(i)
+              stack_x.push(j)
               visit[i][j] = 1
               dy = -2
               redo
@@ -72,7 +72,7 @@ class Wall
     return true
   end
   
-  def setable?( px, py, pnum )
+  def setable? (px, py, pnum)
     case @dir
     when :vertical
       return false if @y < 0 or @y >= $mapsize
@@ -80,31 +80,31 @@ class Wall
       return false if @x < 0 or @x >= $mapsize
     end
     
-    return false if self.dead_end?( px, py, pnum )
+    return false if self.dead_end?(px, py, pnum)
     
     return true
   end
   
-  def movable?( dir )
+  def movable? (dir)
     case dir
     when :up
       if @y - 1 > 0
-        return false if ( $map[@y-2][@x] == 1 ) or ( @dir == :vertical and $map[@y-3][@x] == 1 ) or ( @dir == :horizontal and ( $map[@y-2][@x-1] == 1 or $map[@y-2][@x+1] == 1 ) )
+        return false if ($map[@y-2][@x] == 1) or (@dir == :vertical and $map[@y-3][@x] == 1) or (@dir == :horizontal and ($map[@y-2][@x-1] == 1 or $map[@y-2][@x+1] == 1))
         return true
       end
     when :down
       if @y + 1 < $mapsize - 1
-        return false if ( $map[@y+2][@x] == 1 ) or ( @dir == :vertical and $map[@y+3][@x] == 1 ) or ( @dir == :horizontal and ( $map[@y+2][@x-1] == 1 or $map[@y+2][@x+1] == 1 ) )
+        return false if ($map[@y+2][@x] == 1) or (@dir == :vertical and $map[@y+3][@x] == 1) or (@dir == :horizontal and ($map[@y+2][@x-1] == 1 or $map[@y+2][@x+1] == 1))
         return true
       end
     when :left
       if @x - 1 > 0
-        return false if ( $map[@y][@x-2] == 1 ) or ( @dir == :vertical and ( $map[@y-1][@x-2] == 1 or $map[@y+1][@x-2] == 1 ) ) or ( @dir == :horizontal and $map[@y][@x-3] == 1 )
+        return false if ($map[@y][@x-2] == 1) or (@dir == :vertical and ($map[@y-1][@x-2] == 1 or $map[@y+1][@x-2] == 1)) or (@dir == :horizontal and $map[@y][@x-3] == 1)
         return true
       end
     when :right
       if @x + 1 < $mapsize - 1
-        return false if ( $map[@y][@x+2] == 1 ) or ( @dir == :vertical and ( $map[@y-1][@x+2] == 1 or $map[@y+1][@x+2] == 1 ) ) or ( @dir == :horizontal and $map[@y][@x+3] == 1 )
+        return false if ($map[@y][@x+2] == 1) or (@dir == :vertical and ($map[@y-1][@x+2] == 1 or $map[@y+1][@x+2] == 1)) or (@dir == :horizontal and $map[@y][@x+3] == 1)
         return true
       end
     end
@@ -112,7 +112,7 @@ class Wall
     return false
   end
   
-  def move( dir )
+  def move (dir)
     $map[@y][@x] = 0
     case @dir
     when :vertical
@@ -144,7 +144,7 @@ class Wall
       $map[@y][@x+1] = 1
     end
     
-    $delta = ( @x - @x_old ).abs + ( @y - @y_old ).abs
+    $delta = (@x - @x_old).abs + (@y - @y_old).abs
   end
   
   def update
