@@ -18,7 +18,7 @@ class Director
     @endflag = false
     @image_tile = Image.load('../data/image/tile.png')
   end
-  
+
   def input
     @key[:p1_up]    = Input.key_push?(K_UP)
     @key[:p1_down]  = Input.key_push?(K_DOWN)
@@ -26,18 +26,18 @@ class Director
     @key[:p1_right] = Input.key_push?(K_RIGHT)
     @key[:p1_mode]  = Input.key_push?(K_RSHIFT)
     @key[:p1_spin]  = Input.key_push?(K_RETURN)
-    
+
     @key[:p2_up]    = Input.key_push?(K_W)
     @key[:p2_down]  = Input.key_push?(K_S)
     @key[:p2_left]  = Input.key_push?(K_A)
     @key[:p2_right] = Input.key_push?(K_D)
     @key[:p2_mode]  = Input.key_push?(K_LSHIFT)
     @key[:p2_spin]  = Input.key_push?(K_Z)
-    
+
     @key[:turn_end] = Input.key_push?(K_SPACE)
     @key[:full_scr] = Input.key_push?(K_TAB)
   end
-  
+
   def draw
     Window.draw_font(10, 10, "turn:1", @font) if $turn == 1
     Window.draw_font(10, 10, "turn:2", @font) if $turn == 2
@@ -45,7 +45,7 @@ class Director
     Window.draw_font(100, 10, "setable", @font) if @p1_wnum > 0 and @p2_wnum > 0 and (($turn == 1 and @p1_wall[@p1_wnum].setable?(@p1_pawn.x, @p1_pawn.y, 1)) or ($turn == 2 and @p2_wall[@p2_wnum].setable?(@p2_pawn.x, @p2_pawn.y, 2)))
     Window.draw_font(740, 540, (20/$pnum-@p1_wnum).to_s, @font)
     Window.draw_font(20, 540, (20/$pnum-@p2_wnum).to_s, @font)
-    
+
     $map.each_with_index do |line, i|
       line.each_with_index do |val, j|
         case val
@@ -64,10 +64,10 @@ class Director
       end
     end
   end
-  
+
   def play
     #Window.windowed = !Window.windowed? if @key[:full_scr]
-    
+
     if !@endflag
       if $delta == 0 and (($turn == 1 and @key[:p1_mode]) or ($turn == 2 and @key[:p2_mode]))
         case $mode
@@ -77,7 +77,7 @@ class Director
           $mode = :pawn
         end
       end
-      
+
       case $turn
       when 1
         case $mode
@@ -108,10 +108,10 @@ class Director
           @p2_wall[@p2_wnum].spin if @key[:p2_spin]
         end
       end
-      
+
       if $delta > 0 and @key[:turn_end]
         @endflag = true if @p1_pawn.goal? or @p2_pawn.goal?
-        
+
         case $mode
         when :pawn
           case $turn

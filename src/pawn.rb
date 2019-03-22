@@ -1,6 +1,6 @@
 class Pawn
   attr_reader :x, :y
-  
+
   def initialize (pnum)
     case pnum
     when 1
@@ -18,17 +18,17 @@ class Pawn
     else
       abort "player number is wrong"
     end
-    
+
     @num = pnum
     @x = pos_x
     @y = pos_y
     @x_old = @x
     @y_old = @y
-    
+
     $map[@y][@x] = 2 if @num == 1
     $map[@y][@x] = 3 if @num == 2
   end
-  
+
   def movable? (dir)
     case dir
     when :up
@@ -60,14 +60,14 @@ class Pawn
         return true
       end
     end
-    
+
     return false
   end
-  
+
   def move (dir)
     $map[@y][@x] = 0 if $turn == 1
     $map[@y][@x] = 0 if $turn == 2
-    
+
     case dir
     when :up
       @y -= 2
@@ -85,15 +85,15 @@ class Pawn
 
     $map[@y][@x] = 2 if $turn == 1
     $map[@y][@x] = 3 if $turn == 2
-    
+
     $delta = (@x - @x_old).abs + (@y - @y_old).abs
   end
-  
+
   def update
     @x_old = @x
     @y_old = @y
   end
-  
+
   def goal?
     case @num
     when 1
