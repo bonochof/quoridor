@@ -5,12 +5,12 @@ class Wall
     @x_old = @x
     @y_old = @y
     @dir = :vertical
-    
+
     $map[@y][@x] = 1
     $map[@y-1][@x] = 1
     $map[@y+1][@x] = 1
   end
-  
+
   def spin
     case @dir
     when :vertical
@@ -29,7 +29,7 @@ class Wall
       $map[@y+1][@x] = 1
     end
   end
-  
+
   def dead_end? (px, py, pnum)
     case pnum
     when 1
@@ -52,7 +52,7 @@ class Wall
             if j + dx == goal
               return false
             end
-            
+
             if $map[i+dy][j+dx] == 0 and visit[i+dy][j+dx] == 0
               i += dy
               j += dx
@@ -68,10 +68,10 @@ class Wall
       i = stack_y.pop
       j = stack_x.pop
     end
-    
+
     return true
   end
-  
+
   def setable? (px, py, pnum)
     case @dir
     when :vertical
@@ -79,12 +79,12 @@ class Wall
     when :horizontal
       return false if @x < 0 or @x >= $mapsize
     end
-    
+
     return false if self.dead_end?(px, py, pnum)
-    
+
     return true
   end
-  
+
   def movable? (dir)
     case dir
     when :up
@@ -108,10 +108,10 @@ class Wall
         return true
       end
     end
-    
+
     return false
   end
-  
+
   def move (dir)
     $map[@y][@x] = 0
     case @dir
@@ -122,7 +122,7 @@ class Wall
       $map[@y][@x-1] = 0
       $map[@y][@x+1] = 0
     end
-    
+
     case dir
     when :up
       @y -= 2
@@ -133,7 +133,7 @@ class Wall
     when :right
       @x += 2
     end
-    
+
     $map[@y][@x] = 1
     case @dir
     when :vertical
@@ -143,10 +143,10 @@ class Wall
       $map[@y][@x-1] = 1
       $map[@y][@x+1] = 1
     end
-    
+
     $delta = (@x - @x_old).abs + (@y - @y_old).abs
   end
-  
+
   def update
     @x_old = @x
     @y_old = @y
