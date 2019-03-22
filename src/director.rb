@@ -50,15 +50,16 @@ class Director
       line.each_with_index do |val, j|
         case val
         when 0
-          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:tile]) if i % 2 == 0 and j % 2 == 0
+          Window.draw(j * 32 / 2, i * 32 / 2, Image[:tile]) if i % 2 == 0 and j % 2 == 0
         when 1
+          Window.draw_line(j * 32 / 2, i * 32 / 2)
           #Window.draw_font(j*33+100, i*33+30, "×", @font)
         when 2
-          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:tile])
-          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:pawn1])
+          Window.draw(j * 32 / 2, i * 32 / 2, Image[:tile])
+          Window.draw(j * 32 / 2, i * 32 / 2, Image[:pawn1])
         when 3
-          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:tile])
-          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:pawn2])
+          Window.draw(j * 32 / 2, i * 32 / 2, Image[:tile])
+          Window.draw(j * 32 / 2, i * 32 / 2, Image[:pawn2])
         end
       end
     end
