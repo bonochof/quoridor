@@ -21,6 +21,20 @@ Ruby(OpalによりJavaScriptに変換される)
 ### ライブラリ
 DxOpal
 
+## 実行
+```
+# プロジェクトルートディレクトリに移動
+$ cd quoridor/
+
+# dxopalをインストール
+$ gem install dxopal
+
+# dxopalでサーバを起動
+$ dxopal s
+
+# ブラウザで localhost:7521/src/index.html にアクセス
+```
+
 ## 開発者
 * [bonochof](https://github.com/bonochof)
 * [ko-ke-shi](https://github.com/ko-ke-shi)
