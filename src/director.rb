@@ -8,7 +8,7 @@ class Director
     $map = Array.new($mapsize) { Array.new($mapsize, 0) }
     $delta = 0
     @key = Hash.new
-    @font = Font.new(14)
+    @font = Font.new(32)
     @p1_pawn = Pawn.new(1)
     @p2_pawn = Pawn.new(2)
     @p1_wall = Array.new(20/$pnum).map{ Wall.new }
@@ -50,14 +50,15 @@ class Director
       line.each_with_index do |val, j|
         case val
         when 0
-          Window.draw_font(j*32+100, i*32+30, "０", @font) if i % 2 == 0 and j % 2 == 0
-          #Window.draw(j*33+100, i*33+30, @image_tile)
+          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:tile]) if i % 2 == 0 and j % 2 == 0
         when 1
-          Window.draw_font(j*33+100, i*33+30, "×", @font)
+          #Window.draw_font(j*33+100, i*33+30, "×", @font)
         when 2
-          Window.draw_font(j*33+100, i*33+30, "←", @font)
+          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:tile])
+          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:pawn1])
         when 3
-          Window.draw_font(j*33+100, i*33+30, "→", @font)
+          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:tile])
+          Window.draw((j / 2) * 32, (i / 2) * 32, Image[:pawn2])
         end
       end
     end
