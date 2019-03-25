@@ -16,7 +16,7 @@ class Director
     @p1_wnum = 0
     @p2_wnum = 0
     @endflag = false
-    @image_tile = Image.load('../data/image/tile.png')
+    @mouse = Sprite.new(0, 0, Image.new(0, 0))
   end
 
   def input
@@ -52,7 +52,7 @@ class Director
         when 0
           Window.draw(j * 32 / 2, i * 32 / 2, Image[:tile]) if i % 2 == 0 and j % 2 == 0
         when 1
-          Window.draw_line(j * 32 / 2, i * 32 / 2)
+          #Window.draw_line(j * 32 / 2, i * 32 / 2)
           #Window.draw_font(j*33+100, i*33+30, "×", @font)
         when 2
           Window.draw(j * 32 / 2, i * 32 / 2, Image[:tile])
@@ -63,6 +63,7 @@ class Director
         end
       end
     end
+    @mouse.draw
   end
 
   def play
