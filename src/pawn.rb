@@ -1,4 +1,4 @@
-class Pawn
+class Pawn < Sprite
   attr_reader :x, :y
 
   def initialize (pnum)

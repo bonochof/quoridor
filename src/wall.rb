@@ -1,4 +1,4 @@
-class Wall
+class Wall < Sprite
   def initialize
     @x = 1
     @y = 1
