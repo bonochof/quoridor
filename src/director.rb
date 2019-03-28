@@ -9,13 +9,20 @@ class Director
     $delta = 0
     @key = Hash.new
     @font = Font.new(32)
-    @p1_pawn = Pawn.new(1)
-    @p2_pawn = Pawn.new(2)
-    @p1_wall = Array.new(20/$pnum).map{ Wall.new }
-    @p2_wall = Array.new(20/$pnum).map{ Wall.new }
-    @p1_wnum = 0
-    @p2_wnum = 0
     @endflag = false
+
+    # Game objects
+    @tiles = []
+    $size.times do |y|
+      @tiles << Array.new($size).map.with_index{|tile, x| Tile.new(x * 32, y * 32, Image[:tile])}
+    end
+    @walls = [Array.new(10), Array.new(10)]
+    @walls.map!.with_index do |wall, i|
+      wall.map!.with_index do |obj, j|
+        Wall.new(i + 1, i * 300, j * 32, Image[:wall])
+      end
+    end
+    @pawns = [Pawn.new(1, 0, 4, Image[:pawn1]), Pawn.new(2, 8, 4, Image[:pawn2])]
     @mouse = Sprite.new(0, 0, Image.new(0, 0))
   end
 
@@ -39,6 +46,7 @@ class Director
   end
 
   def draw
+=begin
     Window.draw_font(10, 10, "turn:1", @font) if $turn == 1
     Window.draw_font(10, 10, "turn:2", @font) if $turn == 2
     Window.draw_font(10, 30, "wall", @font) if $mode == :wall
@@ -63,7 +71,11 @@ class Director
         end
       end
     end
-    @mouse.draw
+=end
+    Sprite.draw(@tiles)
+    Sprite.draw(@pawns)
+    Sprite.draw(@walls)
+    #@mouse.draw
   end
 
   def play

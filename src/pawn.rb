@@ -1,34 +1,14 @@
 class Pawn < Sprite
-  attr_reader :x, :y
-
-  def initialize (pnum)
-    case pnum
-    when 1
-      pos_x = 16
-      pos_y = 8
-    when 2
-      pos_x = 0
-      pos_y = 8
-    when 3
-      pos_x = 8
-      pos_y = 16
-    when 4
-      pos_x = 8
-      pos_y = 0
-    else
-      abort "player number is wrong"
-    end
-
-    @num = pnum
-    @x = pos_x
-    @y = pos_y
-    @x_old = @x
-    @y_old = @y
-
-    $map[@y][@x] = 2 if @num == 1
-    $map[@y][@x] = 3 if @num == 2
+  def initialize (id, x, y, image)
+    @player_id = id
+    super(to_pos(x), to_pos(y), image)
   end
 
+  def to_pos (val)
+    val * 32 / 2
+  end
+
+=begin
   def movable? (dir)
     case dir
     when :up
@@ -89,13 +69,8 @@ class Pawn < Sprite
     $delta = (@x - @x_old).abs + (@y - @y_old).abs
   end
 
-  def update
-    @x_old = @x
-    @y_old = @y
-  end
-
   def goal?
-    case @num
+    case @player_id
     when 1
       return true if @x == 0
     when 2
@@ -103,4 +78,5 @@ class Pawn < Sprite
     end
     return false
   end
+=end
 end

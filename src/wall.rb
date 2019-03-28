@@ -1,5 +1,5 @@
 class Wall < Sprite
-  def initialize
+  def initialize (id, x, y, image)
     @x = 1
     @y = 1
     @x_old = @x
@@ -9,8 +9,9 @@ class Wall < Sprite
     $map[@y][@x] = 1
     $map[@y-1][@x] = 1
     $map[@y+1][@x] = 1
+    super(x, y, image)
   end
-
+=begin
   def spin
     case @dir
     when :vertical
@@ -151,4 +152,5 @@ class Wall < Sprite
     @x_old = @x
     @y_old = @y
   end
+=end
 end
