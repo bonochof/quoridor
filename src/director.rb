@@ -1,5 +1,7 @@
 class Director
   def initialize
+    $bx = 190
+    $by = 100
     $pnum = 2
     $size = 9
     $mapsize = $size * 2 - 1
@@ -14,16 +16,16 @@ class Director
     # Game objects
     @tiles = []
     $size.times do |y|
-      @tiles << Array.new($size).map.with_index{|tile, x| Tile.new(x * 32, y * 32, Image[:tile])}
+      @tiles << Array.new($size).map.with_index{|tile, x| Tile.new(x, y, Image[:tile])}
     end
     @walls = [Array.new(10), Array.new(10)]
     @walls.map!.with_index do |wall, i|
       wall.map!.with_index do |obj, j|
-        Wall.new(i + 1, i * 300, j * 32, Image[:wall])
+        Wall.new(i + 1, i * 400 + 100, j * 32 + $by, Image[:wall])
       end
     end
     @pawns = [Pawn.new(1, 0, 4, Image[:pawn1]), Pawn.new(2, 8, 4, Image[:pawn2])]
-    @mouse = Sprite.new(0, 0, Image.new(0, 0))
+    @mouse = Sprite.new(0, 0, Image.new(1, 1))
   end
 
   def input
@@ -43,6 +45,8 @@ class Director
 
     @key[:turn_end] = Input.key_push?(K_SPACE)
     @key[:full_scr] = Input.key_push?(K_TAB)
+
+    @mouse.x, @mouse.y = Input.mouse_pos_x, Input.mouse_pos_y
   end
 
   def draw
@@ -75,7 +79,8 @@ class Director
     Sprite.draw(@tiles)
     Sprite.draw(@pawns)
     Sprite.draw(@walls)
-    #@mouse.draw
+    Window.draw_font(0, 0, "hit", @font) if @mouse === @pawns[0]
+    @mouse.draw
   end
 
   def play

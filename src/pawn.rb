@@ -1,11 +1,11 @@
 class Pawn < Sprite
   def initialize (id, x, y, image)
     @player_id = id
-    super(to_pos(x), to_pos(y), image)
+    super(to_pos(x) + $bx, to_pos(y) + $by, image)
   end
 
   def to_pos (val)
-    val * 32 / 2
+    val * 32
   end
 
 =begin

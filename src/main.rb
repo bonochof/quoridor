@@ -16,8 +16,7 @@ Window.load_resources do
   director = Director.new
 
   Window.loop do
-    $img = Image[:tile]
-    #director.input
+    director.input
     #director.play
     director.draw
   end
