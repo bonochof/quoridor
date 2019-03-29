@@ -2,6 +2,8 @@ require 'dxopal'
 include DXOpal
 
 require_remote 'director.rb'
+require_remote 'scene.rb'
+require_remote 'turn.rb'
 require_remote 'tile.rb'
 require_remote 'wall.rb'
 require_remote 'pawn.rb'
@@ -17,7 +19,7 @@ Window.load_resources do
 
   Window.loop do
     director.input
-    #director.play
+    director.play
     director.draw
   end
 end

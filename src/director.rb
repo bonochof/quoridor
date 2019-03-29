@@ -1,12 +1,11 @@
 class Director
   def initialize
-    $bx = 190
-    $by = 100
-    $pnum = 2
+    $bx = 140
+    $by = 160
     $size = 9
     $mapsize = $size * 2 - 1
-    $turn = 1
-    $mode = :pawn
+    @turn = TURN::PLAYER1
+    $scene = SCENE::NEUTRAL
     $map = Array.new($mapsize) { Array.new($mapsize, 0) }
     $delta = 0
     @key = Hash.new
@@ -21,7 +20,7 @@ class Director
     @walls = [Array.new(10), Array.new(10)]
     @walls.map!.with_index do |wall, i|
       wall.map!.with_index do |obj, j|
-        Wall.new(i + 1, i * 400 + 100, j * 32 + $by, Image[:wall])
+        Wall.new(i + 1, i * 400 + $bx - 90, j * 32 + $by, Image[:wall])
       end
     end
     @pawns = [Pawn.new(1, 0, 4, Image[:pawn1]), Pawn.new(2, 8, 4, Image[:pawn2])]
@@ -47,6 +46,7 @@ class Director
     @key[:full_scr] = Input.key_push?(K_TAB)
 
     @mouse.x, @mouse.y = Input.mouse_pos_x, Input.mouse_pos_y
+    @click = Input.mouse_push?(M_LBUTTON)
   end
 
   def draw
@@ -76,16 +76,31 @@ class Director
       end
     end
 =end
+    # Game board
     Sprite.draw(@tiles)
     Sprite.draw(@pawns)
     Sprite.draw(@walls)
-    Window.draw_font(0, 0, "hit", @font) if @mouse === @pawns[0]
-    @mouse.draw
+    Window.draw_font(0, 0, "hit", @font) if @click and @mouse === @pawns[0]
+
+    Window.draw_font(10, 10, "turn:#{@turn}", @font)
+    Window.draw_font(300, 10, "scene:#{$scene}", @font)
   end
 
   def play
-    #Window.windowed = !Window.windowed? if @key[:full_scr]
+    if @click
+      if $scene != SCENE::NEUTRAL
+        @turn += 1
+        @turn %= 2
+        $scene = SCENE::NEUTRAL
+      elsif @mouse === @pawns[@turn]
+        $scene = SCENE::MOVE_PAWN
+      elsif @mouse === @walls[@turn]
+        $scene = SCENE::MOVE_WALL
+      end
+    end
 
+    #Window.windowed = !Window.windowed? if @key[:full_scr]
+=begin
     if !@endflag
       if $delta == 0 and (($turn == 1 and @key[:p1_mode]) or ($turn == 2 and @key[:p2_mode]))
         case $mode
@@ -154,5 +169,6 @@ class Director
         $delta = 0
       end
     end
+=end
   end
 end
