@@ -47,6 +47,7 @@ class Director
 
     @mouse.x, @mouse.y = Input.mouse_pos_x, Input.mouse_pos_y
     @click = Input.mouse_push?(M_LBUTTON)
+    @spin = Input.mouse_push?(M_RBUTTON)
   end
 
   def draw
@@ -97,6 +98,10 @@ class Director
       elsif @mouse === @walls[@turn]
         $scene = SCENE::MOVE_WALL
       end
+    else
+
+    if @spin
+      Sprite.check(@walls)
     end
 
     #Window.windowed = !Window.windowed? if @key[:full_scr]

@@ -10,6 +10,7 @@ class Wall < Sprite
     $map[@y-1][@x] = 1
     $map[@y+1][@x] = 1
     super(x, y, image)
+    self.angle = 90
   end
 =begin
   def spin
