@@ -81,7 +81,6 @@ class Director
     Sprite.draw(@tiles)
     Sprite.draw(@pawns)
     Sprite.draw(@walls)
-    Window.draw_font(0, 0, "hit", @font) if @click and @mouse === @pawns[0]
 
     Window.draw_font(10, 10, "turn:#{@turn}", @font)
     Window.draw_font(300, 10, "scene:#{$scene}", @font)
