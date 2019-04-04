@@ -11,6 +11,7 @@ class Director
     @key = Hash.new
     @font = Font.new(32)
     @endflag = false
+    @wall = nil
 
     # Game objects
     @tiles = []
@@ -47,7 +48,7 @@ class Director
 
     @mouse.x, @mouse.y = Input.mouse_pos_x, Input.mouse_pos_y
     @click = Input.mouse_push?(M_LBUTTON)
-    @spin = Input.mouse_push?(M_RBUTTON)
+    @spin = Input.key_push?(K_S)
   end
 
   def draw
@@ -95,16 +96,18 @@ class Director
       elsif @mouse === @pawns[@turn]
         $scene = SCENE::MOVE_PAWN
       elsif @mouse === @walls[@turn]
+        @wall = @mouse.check(@walls[@turn])
         $scene = SCENE::MOVE_WALL
       end
     end
 
-    if @spin
-      @mouse.check(@walls).each do |wall|
-        wall.angle += 90
+    if $scene == SCENE::MOVE_WALL
+      @wall.map{|wall| wall.angle += 90} if @spin
+      @wall.each do |wall|
+        wall.x = @mouse.x - wall.image.width / 2
+        wall.y = @mouse.y - wall.image.height / 2
       end
     end
-
     #Window.windowed = !Window.windowed? if @key[:full_scr]
 =begin
     if !@endflag
