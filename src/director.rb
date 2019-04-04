@@ -102,11 +102,8 @@ class Director
     end
 
     if $scene == SCENE::MOVE_WALL
-      @wall.map{|wall| wall.angle += 90} if @spin
-      @wall.each do |wall|
-        wall.x = @mouse.x - wall.image.width / 2
-        wall.y = @mouse.y - wall.image.height / 2
-      end
+      @wall.map{|wall| wall.move(@mouse)}
+      @wall.map{|wall| wall.spin} if @spin
     end
     #Window.windowed = !Window.windowed? if @key[:full_scr]
 =begin

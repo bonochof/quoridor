@@ -11,6 +11,19 @@ class Wall < Sprite
     $map[@y+1][@x] = 1
     super(x, y, image)
   end
+
+  def move (mouse)
+    self.x = mouse.x - self.image.width / 2
+    self.y = mouse.y - self.image.height / 2
+  end
+
+  def spin
+    self.angle += 90
+  end
+
+  def setable?
+    
+  end
 =begin
   def spin
     case @dir
