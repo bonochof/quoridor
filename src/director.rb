@@ -97,10 +97,12 @@ class Director
       elsif @mouse === @walls[@turn]
         $scene = SCENE::MOVE_WALL
       end
-    else
+    end
 
     if @spin
-      Sprite.check(@walls)
+      @mouse.check(@walls).each do |wall|
+        wall.angle += 90
+      end
     end
 
     #Window.windowed = !Window.windowed? if @key[:full_scr]
