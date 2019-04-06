@@ -29,26 +29,9 @@ class Director
   end
 
   def input
-    @key[:p1_up]    = Input.key_push?(K_UP)
-    @key[:p1_down]  = Input.key_push?(K_DOWN)
-    @key[:p1_left]  = Input.key_push?(K_LEFT)
-    @key[:p1_right] = Input.key_push?(K_RIGHT)
-    @key[:p1_mode]  = Input.key_push?(K_RSHIFT)
-    @key[:p1_spin]  = Input.key_push?(K_RETURN)
-
-    @key[:p2_up]    = Input.key_push?(K_W)
-    @key[:p2_down]  = Input.key_push?(K_S)
-    @key[:p2_left]  = Input.key_push?(K_A)
-    @key[:p2_right] = Input.key_push?(K_D)
-    @key[:p2_mode]  = Input.key_push?(K_LSHIFT)
-    @key[:p2_spin]  = Input.key_push?(K_Z)
-
-    @key[:turn_end] = Input.key_push?(K_SPACE)
-    @key[:full_scr] = Input.key_push?(K_TAB)
-
     @mouse.x, @mouse.y = Input.mouse_pos_x, Input.mouse_pos_y
-    @click = Input.mouse_push?(M_LBUTTON)
-    @spin = Input.key_push?(K_S)
+    @input[:click] = Input.mouse_push?(M_LBUTTON)
+    @input[:spin] = Input.key_push?(K_S)
   end
 
   def draw
@@ -88,7 +71,7 @@ class Director
   end
 
   def play
-    if @click
+    if @input[:click]
       if $scene != SCENE::NEUTRAL
         @turn += 1
         @turn %= 2
@@ -103,7 +86,7 @@ class Director
 
     if $scene == SCENE::MOVE_WALL
       @wall.map{|wall| wall.move(@mouse)}
-      @wall.map{|wall| wall.spin} if @spin
+      @wall.map{|wall| wall.spin} if @input[:spin]
     end
     #Window.windowed = !Window.windowed? if @key[:full_scr]
 =begin
