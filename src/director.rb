@@ -8,7 +8,7 @@ class Director
     $scene = SCENE::NEUTRAL
     $map = Array.new($mapsize) { Array.new($mapsize, 0) }
     $delta = 0
-    @key = Hash.new
+    @input = Hash.new
     @font = Font.new(32)
     @endflag = false
     @wall = nil
