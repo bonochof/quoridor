@@ -35,32 +35,6 @@ class Director
   end
 
   def draw
-=begin
-    Window.draw_font(10, 10, "turn:1", @font) if $turn == 1
-    Window.draw_font(10, 10, "turn:2", @font) if $turn == 2
-    Window.draw_font(10, 30, "wall", @font) if $mode == :wall
-    Window.draw_font(100, 10, "setable", @font) if @p1_wnum > 0 and @p2_wnum > 0 and (($turn == 1 and @p1_wall[@p1_wnum].setable?(@p1_pawn.x, @p1_pawn.y, 1)) or ($turn == 2 and @p2_wall[@p2_wnum].setable?(@p2_pawn.x, @p2_pawn.y, 2)))
-    Window.draw_font(740, 540, (20/$pnum-@p1_wnum).to_s, @font)
-    Window.draw_font(20, 540, (20/$pnum-@p2_wnum).to_s, @font)
-
-    $map.each_with_index do |line, i|
-      line.each_with_index do |val, j|
-        case val
-        when 0
-          Window.draw(j * 32 / 2, i * 32 / 2, Image[:tile]) if i % 2 == 0 and j % 2 == 0
-        when 1
-          #Window.draw_line(j * 32 / 2, i * 32 / 2)
-          #Window.draw_font(j*33+100, i*33+30, "×", @font)
-        when 2
-          Window.draw(j * 32 / 2, i * 32 / 2, Image[:tile])
-          Window.draw(j * 32 / 2, i * 32 / 2, Image[:pawn1])
-        when 3
-          Window.draw(j * 32 / 2, i * 32 / 2, Image[:tile])
-          Window.draw(j * 32 / 2, i * 32 / 2, Image[:pawn2])
-        end
-      end
-    end
-=end
     # Game board
     Sprite.draw(@tiles)
     Sprite.draw(@pawns)
